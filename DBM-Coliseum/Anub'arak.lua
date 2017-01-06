@@ -33,9 +33,10 @@ mod:AddBoolOption("PlaySoundOnPursue")
 mod:AddBoolOption("PursueIcon")
 
 -- Emerge
+local secondsSubmerged		= 62
 local warnEmerge			= mod:NewAnnounce("WarnEmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 local warnEmergeSoon		= mod:NewAnnounce("WarnEmergeSoon", 1, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
-local timerEmerge			= mod:NewTimer(65, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+local timerEmerge			= mod:NewTimer(secondsSubmerged, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 
 -- Submerge
 local warnSubmerge			= mod:NewAnnounce("WarnSubmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
@@ -196,7 +197,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		timerAdds:Cancel()
 		warnAdds:Cancel()
 		warnSubmerge:Show()
-		warnEmergeSoon:Schedule(55)
+		warnEmergeSoon:Schedule(secondsSubmerged-10)
 		timerEmerge:Start()
 		timerFreezingSlash:Stop()
 	elseif msg and msg:find(L.Emerge) then
