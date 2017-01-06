@@ -64,8 +64,7 @@ function mod:OnCombatStart(delay)
 		DBM.BossHealth:Show(L.name)
 		DBM.BossHealth:AddBoss(34780, L.name)
 	end
-	timerPortalCD:Start(25-delay)
-	warnPortalSoon:Schedule(20-delay)
+	self:Portals()
 	timerVolcanoCD:Start(70-delay)
 	warnVolcanoSoon:Schedule(65-delay)
 	timerFleshCD:Start(14-delay)
@@ -75,6 +74,15 @@ end
 
 function mod:OnCombatEnd()
 	DBM.BossHealth:Clear()
+end
+
+-- Pre-schedule all portals since the spell ID for Nether Portal seems off .zykadelic
+function mod:Portals()
+	if self:IsInCombat() then
+		timerPortalCD:Start(25)
+		warnPortalSoon:Schedule(20)
+		self:ScheduleMethod(110, "Portals")
+	end
 end
 
 do
@@ -195,9 +203,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerVolcanoCD:Start()
 		warnVolcanoSoon:Schedule(135)
 
-	elseif args:IsSpellID(67900, 67899, 67898, 66269) then		-- Nether Portal
-		timerPortalCD:Start()
-		warnPortalSoon:Schedule(110)
+	-- These spell IDs doesn't seem to be correct for Dalaran's Jaraxxus - portals are pre-scheduled instead .zykadelic
+	-- elseif args:IsSpellID(67900, 67899, 67898, 66269) then		-- Nether Portal
+	-- 	timerPortalCD:Start()
+	-- 	warnPortalSoon:Schedule(110)
 	
 	elseif args:IsSpellID(66197, 68123, 68124, 68125) then		-- Legion Flame
 		warnFlame:Show(args.destName)
