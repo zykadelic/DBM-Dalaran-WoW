@@ -200,6 +200,23 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		warnEmergeSoon:Schedule(secondsSubmerged-10)
 		timerEmerge:Start()
 		timerFreezingSlash:Stop()
+
+		-- since the Emerge emote is never triggered, schedule the events on Burrow
+		-- remove this when dalaranwow/dalaran-wow#4100 is live .zykadelic
+		timerAdds:Start(10+secondsSubmerged) 
+		warnAdds:Schedule(10+secondsSubmerged) 
+		self:ScheduleMethod(10+secondsSubmerged, "Adds")
+		warnSubmergeSoon:Schedule(70+secondsSubmerged)
+		specWarnSubmergeSoon:Schedule(70+secondsSubmerged)
+		timerSubmerge:Start(80+secondsSubmerged)
+		timerFreezingSlash:Start(secondsSubmerged)
+
+		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+			timerShadowStrike:Start()
+			preWarnShadowStrike:Schedule(25.5+secondsSubmerged)
+			self:ScheduleMethod(30.5+secondsSubmerged, "ShadowStrike")
+		end
+		-- end remove #4100
 	elseif msg and msg:find(L.Emerge) then
 		Burrowed = false
 		timerAdds:Start(10)
