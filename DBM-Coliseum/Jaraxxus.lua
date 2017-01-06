@@ -69,7 +69,7 @@ function mod:OnCombatStart(delay)
 	timerVolcanoCD:Start(80-delay)
 	warnVolcanoSoon:Schedule(75-delay)
 	timerFleshCD:Start(14-delay)
-	timerFlameCD:Start(20-delay)
+	timerFlameCD:Start(34-delay)
 	enrageTimer:Start(-delay)
 end
 
