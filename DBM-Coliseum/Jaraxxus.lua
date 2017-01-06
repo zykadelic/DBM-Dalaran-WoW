@@ -49,7 +49,7 @@ local timerNetherPowerCD		= mod:NewCDTimer(42, 67009)
 local timerFlesh				= mod:NewTargetTimer(12, 67049)
 local timerFleshCD				= mod:NewCDTimer(23, 67051) 
 local timerPortalCD				= mod:NewCDTimer(120, 67900)
-local timerVolcanoCD			= mod:NewCDTimer(120, 67901)
+local timerVolcanoCD			= mod:NewCDTimer(140, 67901)
 
 mod:AddBoolOption("LegionFlameWhisper", false, "announce")
 mod:AddBoolOption("LegionFlameRunSound", true)
@@ -193,7 +193,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 
 	elseif args:IsSpellID(67901, 67902, 67903, 66258) then		-- Infernal Volcano
 		timerVolcanoCD:Start()
-		warnVolcanoSoon:Schedule(110)
+		warnVolcanoSoon:Schedule(135)
 
 	elseif args:IsSpellID(67900, 67899, 67898, 66269) then		-- Nether Portal
 		timerPortalCD:Start()
