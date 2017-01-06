@@ -56,7 +56,7 @@ mod:AddBoolOption("AnnouncePColdIconsRemoved", false)
 
 -- Freezing Slash
 local warnFreezingSlash		= mod:NewTargetAnnounce(66012, 2, nil, mod:IsHealer() or mod:IsTank())
-local timerFreezingSlash	= mod:NewCDTimer(20, 66012, nil, mod:IsHealer() or mod:IsTank())
+local timerFreezingSlash	= mod:NewCDTimer(15, 66012, nil, mod:IsHealer() or mod:IsTank())
 
 -- Shadow Strike
 local timerShadowStrike		= mod:NewNextTimer(30.5, 66134)
