@@ -48,7 +48,8 @@ local timerEmerge			= mod:NewTimer(10, "TimerEmerge", "Interface\\AddOns\\DBM-Co
 
 local timerBreath			= mod:NewCastTimer(5, 67650)
 local timerNextStomp		= mod:NewNextTimer(20, 66330)
-local timerNextImpale		= mod:NewNextTimer(10, 67477, nil, mod:IsTank() or mod:IsHealer())
+-- The impale timer seems to be random with 9±1s, so 9 is approximative .zykadelic
+local timerNextImpale		= mod:NewNextTimer(9, 67477, nil, mod:IsTank() or mod:IsHealer())
 local timerRisingAnger      = mod:NewNextTimer(20.5, 66636)
 local timerStaggeredDaze	= mod:NewBuffActiveTimer(15, 66758)
 local timerNextCrash		= mod:NewCDTimer(55, 67662)
