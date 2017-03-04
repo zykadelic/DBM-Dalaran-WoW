@@ -51,6 +51,8 @@ local timerFleshCD				= mod:NewCDTimer(23, 67051)
 local timerPortalCD				= mod:NewCDTimer(120, 67900)
 local timerVolcanoCD			= mod:NewCDTimer(140, 67901)
 
+local firstVolcanoOffBy			= 20
+
 mod:AddBoolOption("LegionFlameWhisper", false, "announce")
 mod:AddBoolOption("LegionFlameRunSound", true)
 mod:AddBoolOption("LegionFlameIcon", true)
@@ -65,8 +67,8 @@ function mod:OnCombatStart(delay)
 		DBM.BossHealth:AddBoss(34780, L.name)
 	end
 	self:Portals(-delay)
-	timerVolcanoCD:Start(70-delay)
-	warnVolcanoSoon:Schedule(65-delay)
+	timerVolcanoCD:Start(70-delay+firstVolcanoOffBy)
+	warnVolcanoSoon:Schedule(65-delay+firstVolcanoOffBy)
 	timerFleshCD:Start(14-delay)
 	timerFlameCD:Start(34-delay)
 	enrageTimer:Start(-delay)
