@@ -64,7 +64,7 @@ function mod:OnCombatStart(delay)
 		DBM.BossHealth:Show(L.name)
 		DBM.BossHealth:AddBoss(34780, L.name)
 	end
-	self:Portals()
+	self:Portals(-delay)
 	timerVolcanoCD:Start(70-delay)
 	warnVolcanoSoon:Schedule(65-delay)
 	timerFleshCD:Start(14-delay)
@@ -77,11 +77,11 @@ function mod:OnCombatEnd()
 end
 
 -- Pre-schedule all portals since the spell ID for Nether Portal seems off .zykadelic
-function mod:Portals()
+function mod:Portals(delay)
 	if self:IsInCombat() then
-		timerPortalCD:Start(25)
-		warnPortalSoon:Schedule(20)
-		self:ScheduleMethod(110, "Portals")
+		timerPortalCD:Start(25-delay-4.7) -- 8.37
+		warnPortalSoon:Schedule(20-delay-4.7)
+		self:ScheduleMethod(135-delay, "Portals") -- 10.52
 	end
 end
 
