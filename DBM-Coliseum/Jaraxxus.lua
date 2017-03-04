@@ -28,6 +28,7 @@ local isMagicDispeller = select(2, UnitClass("player")) == "PALADIN"
 
 local warnFelFireball			= mod:NewCastAnnounce(66532, 2)
 local warnPortalSoon			= mod:NewSoonAnnounce(67900, 3)
+local warnPortalSoon2			= mod:NewSoonAnnounce(67900, 3)
 local warnVolcanoSoon			= mod:NewSoonAnnounce(67901, 3)
 local warnFlame					= mod:NewTargetAnnounce(68123, 4)
 local warnFlesh					= mod:NewTargetAnnounce(66237, 4, nil, mod:IsHealer())
@@ -49,6 +50,7 @@ local timerNetherPowerCD		= mod:NewCDTimer(42, 67009)
 local timerFlesh				= mod:NewTargetTimer(12, 67049)
 local timerFleshCD				= mod:NewCDTimer(23, 67051) 
 local timerPortalCD				= mod:NewCDTimer(120, 67900)
+local timerPortalCD2			= mod:NewCDTimer(120, 67900)
 local timerVolcanoCD			= mod:NewCDTimer(140, 67901)
 
 local firstVolcanoOffBy			= 20
@@ -66,25 +68,21 @@ function mod:OnCombatStart(delay)
 		DBM.BossHealth:Show(L.name)
 		DBM.BossHealth:AddBoss(34780, L.name)
 	end
-	self:Portals(-delay)
 	timerVolcanoCD:Start(70-delay+firstVolcanoOffBy)
 	warnVolcanoSoon:Schedule(65-delay+firstVolcanoOffBy)
 	timerFleshCD:Start(14-delay)
 	timerFlameCD:Start(34-delay)
 	enrageTimer:Start(-delay)
+
+	-- Pre-schedule the first and second portals since the spell ID for Nether Portal seems off .zykadelic
+	timerPortalCD:Start(25-delay-4.7)
+	warnPortalSoon:Schedule(20-delay-4.7)
+	timerPortalCD2:Start(25-delay-4.7+135)
+	warnPortalSoon2:Schedule(20-delay-4.7+135)
 end
 
 function mod:OnCombatEnd()
 	DBM.BossHealth:Clear()
-end
-
--- Pre-schedule all portals since the spell ID for Nether Portal seems off .zykadelic
-function mod:Portals(delay)
-	if self:IsInCombat() then
-		timerPortalCD:Start(25-delay-4.7) -- 8.37
-		warnPortalSoon:Schedule(20-delay-4.7)
-		self:ScheduleMethod(135-delay, "Portals") -- 10.52
-	end
 end
 
 do
