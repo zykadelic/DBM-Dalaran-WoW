@@ -51,9 +51,9 @@ local timerFlesh				= mod:NewTargetTimer(12, 67049)
 local timerFleshCD				= mod:NewCDTimer(23, 67051) 
 local timerPortalCD				= mod:NewCDTimer(120, 67900)
 local timerPortalCD2			= mod:NewCDTimer(120, 67900)
-local timerVolcanoCD			= mod:NewCDTimer(140, 67901)
+local timerVolcanoCD			= mod:NewCDTimer(135, 67901)
 
-local firstVolcanoOffBy			= 20
+local firstVolcanoOffBy			= 25
 
 mod:AddBoolOption("LegionFlameWhisper", false, "announce")
 mod:AddBoolOption("LegionFlameRunSound", true)
@@ -201,7 +201,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 
 	elseif args:IsSpellID(67901, 67902, 67903, 66258) then		-- Infernal Volcano
 		timerVolcanoCD:Start()
-		warnVolcanoSoon:Schedule(135)
+		warnVolcanoSoon:Schedule(130)
 
 	-- These spell IDs doesn't seem to be correct for Dalaran's Jaraxxus - portals are pre-scheduled instead .zykadelic
 	-- elseif args:IsSpellID(67900, 67899, 67898, 66269) then		-- Nether Portal
