@@ -53,8 +53,6 @@ local timerPortalCD				= mod:NewCDTimer(120, 67900)
 local timerPortalCD2			= mod:NewCDTimer(120, 67900)
 local timerVolcanoCD			= mod:NewCDTimer(135, 67901)
 
-local firstVolcanoOffBy			= 15
-
 mod:AddBoolOption("LegionFlameWhisper", false, "announce")
 mod:AddBoolOption("LegionFlameRunSound", true)
 mod:AddBoolOption("LegionFlameIcon", true)
@@ -68,17 +66,17 @@ function mod:OnCombatStart(delay)
 		DBM.BossHealth:Show(L.name)
 		DBM.BossHealth:AddBoss(34780, L.name)
 	end
-	timerVolcanoCD:Start(80-delay+firstVolcanoOffBy)
-	warnVolcanoSoon:Schedule(75-delay+firstVolcanoOffBy)
+	timerVolcanoCD:Start(95-delay)
+	warnVolcanoSoon:Schedule(90-delay)
 	timerFleshCD:Start(14-delay)
 	timerFlameCD:Start(34-delay)
 	enrageTimer:Start(-delay)
 
 	-- Pre-schedule the first and second portals since the spell ID for Nether Portal seems off .zykadelic
-	timerPortalCD:Start(25-delay-4.7)
-	warnPortalSoon:Schedule(20-delay-4.7)
-	timerPortalCD2:Start(25-delay-4.5+135)
-	warnPortalSoon2:Schedule(20-delay-4.5+135)
+	timerPortalCD:Start(20.3-delay)
+	warnPortalSoon:Schedule(15.3-delay)
+	timerPortalCD2:Start(20.3-delay+135)
+	warnPortalSoon2:Schedule(15.3-delay+135)
 end
 
 function mod:OnCombatEnd()
