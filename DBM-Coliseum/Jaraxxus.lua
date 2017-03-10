@@ -73,10 +73,10 @@ function mod:OnCombatStart(delay)
 	enrageTimer:Start(-delay)
 
 	-- Pre-schedule the first and second portals since the spell ID for Nether Portal seems off .zykadelic
-	timerPortalCD:Start(20.3-delay)
-	warnPortalSoon:Schedule(15.3-delay)
-	timerPortalCD2:Start(20.3-delay+135)
-	warnPortalSoon2:Schedule(15.3-delay+135)
+	timerPortalCD:Start(20-delay)
+	warnPortalSoon:Schedule(15-delay)
+	timerPortalCD2:Start(20-delay+135)
+	warnPortalSoon2:Schedule(15-delay+135)
 end
 
 function mod:OnCombatEnd()
